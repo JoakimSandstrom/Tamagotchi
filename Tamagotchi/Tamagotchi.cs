@@ -9,18 +9,25 @@ public class Tamagotchi
 
     public void Feed()
     {
-        hunger--;
+        hunger-=3;
     }
     public string Hi()
     {
         int i = generator.Next(words.Count);
-        ReduceBoredom();
-        return words[i];
+        if(words.Count != 0)
+        {
+            ReduceBoredom(3);
+            return words[i];
+        }
+        else
+        {
+            return null;
+        }
     }
     public void Teach(string word)
     {
         words.Add(word);
-        ReduceBoredom();
+        ReduceBoredom(2);
     }
     public void Tick()
     {
@@ -33,39 +40,19 @@ public class Tamagotchi
     }
     public void Sleep()
     {
-        hunger += 5;
-        boredom += 2;
+        hunger += 6;
+        boredom += 4;
         if (hunger > 20 || boredom > 20)
         {
             isAlive = false;
-        }
-    }
-    public void PrintStats()
-    {
-        Console.Write("");
-        if (isAlive == false)
-        {
-            Console.WriteLine(name+" Is Dead...");
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Press Enter To Continue...");
-            Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine(name+" Is Somehow Still Alive");
-            Console.WriteLine(name+"'s Hunger Is At "+hunger);
-            Console.WriteLine(name+"'s Boredom Is At "+boredom);
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Press Enter To Continue...");
-            Console.ReadLine();
         }
     }
     public bool GetAlive()
     {
         return isAlive;
     }
-    private void ReduceBoredom()
+    private void ReduceBoredom(int val)
     {
-        boredom--;
+        boredom-=val;
     }
 }

@@ -5,6 +5,7 @@ int i = 0;
 time[0]=1;
 time[1]=1;
 
+
 //Name The Tamagotchi
 Console.WriteLine("Name Your Tamagotchi: ");
 tama.name = Console.ReadLine();
@@ -25,7 +26,7 @@ while(i==0)
     {
     case "1":   // Teach New Word
         Console.Clear();
-        Console.WriteLine("What Word Do You Want To Teach "+tama.name);
+        Console.WriteLine("What Word Do You Want To Teach "+tama.name+"?");
         newWord = Console.ReadLine();
         if(newWord == null)
         {
@@ -36,9 +37,21 @@ while(i==0)
         Console.WriteLine(tama.name+" Learned To Say "+newWord);
         break;
 
-    case "2":   // Say Hi
-        Console.WriteLine("You Said Hi To "+tama.name);
-        Console.WriteLine(tama.name+" Says "+tama.Hi()+"");
+    case "2":   // Say 
+        string word = tama.Hi();
+        if(word==null)
+        {
+            Console.WriteLine(tama.name+" Is Not Smart Enough To Speak. Try Teaching It A Word Or Two First");
+            tama.hunger--;
+            tama.boredom--;
+            time[1]--;
+        }
+        else
+        {
+            Console.WriteLine("You Said Hi To "+tama.name);
+            Console.WriteLine(tama.name+" Says "+word);
+        }
+        
         break;
     case "3":   // Feed
         Console.WriteLine("You Feed "+tama.name+"...");
@@ -53,6 +66,7 @@ while(i==0)
         }
         break;
     case "4":   // Do Nothing
+        Console.WriteLine("You Selfishly Spent An Hour Without Taking Care Of "+tama.name+".");
         break;
     default:    // Error Message
         Console.WriteLine("Oops, The Program Could Not Recognize Your Input. Press Enter To Try Again...");
@@ -80,9 +94,20 @@ while(i==0)
         {
             Console.WriteLine(tama.name+" Is Bored Out Of Their Mind... If You Don't Play With Them Something Unfortunate Might Happen...");
         }
-
+        if(tama.hunger>=20)
+        {
+            Console.WriteLine(tama.name+" Became To Hungry And Escaped... They Now Feed On The Souls Of The Innocent...");
+            Console.WriteLine("GAME OVER!");
+            i++;
+        }
+        if(tama.boredom>=20)
+        {
+            Console.WriteLine(tama.name+" Became To Bored And Escaped... They Found The Joy That You Could Not Give Them In Causing Minor Inconviniences For People All Over The World...");
+            Console.WriteLine("GAME OVER!");
+            i++;
+        }
         Console.Clear();
-        Console.WriteLine("Day "+time[0]+"Is Over, Time To Sleep...");
+        Console.WriteLine("Day "+time[0]+" Is Over, Time To Sleep...");
         Console.WriteLine("Now Starts Day "+time[0]+"!");
 
         Console.WriteLine("Press Enter To Continue...");
@@ -111,6 +136,7 @@ while(i==0)
         {
             Console.WriteLine(tama.name+" Became To Bored And Escaped... They Found The Joy That You Could Not Give Them In Causing Minor Inconviniences For People All Over The World...");
             Console.WriteLine("GAME OVER!");
+            i++;
         }
     }
 }
