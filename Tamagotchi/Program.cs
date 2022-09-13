@@ -76,74 +76,16 @@ while(i==0)
         break;
     }
 
+    // Pass Time
+    Console.WriteLine();
+    i = Time(tama, time, i);
     Console.WriteLine("Press Enter To Continue...");
     Console.ReadLine();
-
-    // Pass Time
-    if(time[1]==10)
-    {   // Go To Next Day
-        time[0]++;
-        time[1]=1;
-        tama.Sleep();
-
-        if(tama.hunger>=15)
-        {
-            Console.WriteLine(tama.name+" Is Starving... If You Don't Feed Them Soon Something Unfortunate Might Happen...");
-        }
-        if(tama.boredom>=15)
-        {
-            Console.WriteLine(tama.name+" Is Bored Out Of Their Mind... If You Don't Play With Them Something Unfortunate Might Happen...");
-        }
-        if(tama.hunger>=20)
-        {
-            Console.WriteLine(tama.name+" Became To Hungry And Escaped... They Now Feed On The Souls Of The Innocent...");
-            Console.WriteLine("GAME OVER!");
-            i++;
-        }
-        if(tama.boredom>=20)
-        {
-            Console.WriteLine(tama.name+" Became To Bored And Escaped... They Found The Joy That You Could Not Give Them In Causing Minor Inconviniences For People All Over The World...");
-            Console.WriteLine("GAME OVER!");
-            i++;
-        }
-        Console.Clear();
-        Console.WriteLine("Day "+time[0]+" Is Over, Time To Sleep...");
-        Console.WriteLine("Now Starts Day "+time[0]+"!");
-
-        Console.WriteLine("Press Enter To Continue...");
-        Console.ReadLine();
-    }
-    else
-    {   // Add An Hour
-        time[1]++;
-        tama.Tick();
-
-        if(tama.hunger>=15)
-        {
-            Console.WriteLine(tama.name+" Is Starving... If You Don't Feed Them Soon Something Unfortunate Might Happen...");
-        }
-        if(tama.boredom>=15)
-        {
-            Console.WriteLine(tama.name+" Is Bored Out Of Their Mind... If You Don't Play With Them Something Unfortunate Might Happen...");
-        }
-        if(tama.hunger>=20)
-        {
-            Console.WriteLine(tama.name+" Became To Hungry And Escaped... They Now Feed On The Souls Of The Innocent...");
-            Console.WriteLine("GAME OVER!");
-            i++;
-        }
-        if(tama.boredom>=20)
-        {
-            Console.WriteLine(tama.name+" Became To Bored And Escaped... They Found The Joy That You Could Not Give Them In Causing Minor Inconviniences For People All Over The World...");
-            Console.WriteLine("GAME OVER!");
-            i++;
-        }
-    }
 }
-
 
 Console.ReadLine();
 
+//Homescreen
 static void Home(Tamagotchi tama, int[] time)
 {
     Console.Clear();
@@ -164,4 +106,34 @@ static void Home(Tamagotchi tama, int[] time)
     Console.WriteLine("2. Say Hi To "+tama.name+".");
     Console.WriteLine("3. Feed "+tama.name+".");
     Console.WriteLine("4. Do Nothing.");
+}
+
+//Add hunger and boredom and change day/hour
+static int Time(Tamagotchi tama, int[] time, int i)
+{
+    if(time[1]==10)
+    {
+        Console.WriteLine("Day "+(time[0])+" Is Over, Time To Sleep...");
+        time[0]++;
+        time[1]=1;
+        tama.Sleep();
+        Console.WriteLine("Now Starts Day "+time[0]+"!");
+    }
+    else
+    {
+        time[1]++;
+        tama.Tick();
+    }
+    
+    if (tama.hunger == 20 || tama.boredom == 20)
+    {
+        Console.WriteLine(tama.name+" Was To Neglected And Died...");
+        Console.WriteLine("GAME OVER!");
+        i++;
+    }
+    else if (tama.hunger >= 15 || tama.boredom >= 15)
+    {
+        Console.WriteLine("You Have Been Ignoring "+tama.name+". Take Care Of Them Or They Might Die!");
+    }
+    return i;
 }

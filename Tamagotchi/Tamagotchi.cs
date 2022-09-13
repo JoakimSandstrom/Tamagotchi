@@ -40,7 +40,7 @@ public class Tamagotchi
     }
     public void Sleep()
     {
-        hunger += 6;
+        hunger += 5;
         boredom += 4;
         if (hunger > 20 || boredom > 20)
         {
